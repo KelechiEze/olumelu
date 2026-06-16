@@ -56,9 +56,9 @@ export default function HeroSection({ onLearnMoreClick }: HeroSectionProps) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Absolute dark vignette/gradients representing Framer screenshot depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/45 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/15 to-transparent z-10 pointer-events-none" />
+        {/* Reduced opacity dark vignette/gradients */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-black/30 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent z-10 pointer-events-none" />
       </div>
 
       {/* Floating Header Column - Desktop Glassmorphism Pill */}
@@ -67,7 +67,7 @@ export default function HeroSection({ onLearnMoreClick }: HeroSectionProps) {
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-5xl glass-blur px-4 md:px-7 py-3 rounded-full flex items-center justify-between"
+          className="relative w-full max-w-5xl glass-blur px-4 md:px-7 py-3 rounded-full flex items-center justify-between bg-black/40 backdrop-blur-xl border border-white/10"
         >
           {/* Logo */}
           <a href="#" className="flex items-center gap-1.5 focus:outline-none">
@@ -83,7 +83,7 @@ export default function HeroSection({ onLearnMoreClick }: HeroSectionProps) {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-xs lg:text-sm font-medium text-white/75 hover:text-white transition-colors duration-200 relative group py-1"
+                className="text-xs lg:text-sm font-medium text-white/60 hover:text-white transition-colors duration-200 relative group py-1"
                 onClick={(e) => {
                   if (link.href.startsWith("#")) {
                     e.preventDefault();
@@ -117,7 +117,7 @@ export default function HeroSection({ onLearnMoreClick }: HeroSectionProps) {
           {/* Burger menu button - Mobile */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-full text-white/90 hover:text-white focus:outline-none focus:ring-1 focus:ring-white/20 z-40"
+            className="md:hidden p-2 rounded-full text-white/70 hover:text-white focus:outline-none focus:ring-1 focus:ring-white/20 z-40"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -132,14 +132,14 @@ export default function HeroSection({ onLearnMoreClick }: HeroSectionProps) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-24 left-4 right-4 z-40 p-6 rounded-3xl bg-zinc-950/95 border border-white/10 backdrop-blur-xl shadow-2xl flex flex-col gap-6 md:hidden text-left"
+              className="absolute top-24 left-4 right-4 z-40 p-6 rounded-3xl bg-zinc-950/80 border border-white/10 backdrop-blur-xl shadow-2xl flex flex-col gap-6 md:hidden text-left"
             >
               <div className="flex flex-col gap-4">
                 {navLinks.map((link) => (
                   <a
                     key={link.label}
                     href={link.href}
-                    className="text-lg font-medium text-white/80 hover:text-white py-2 border-b border-white/5"
+                    className="text-lg font-medium text-white/60 hover:text-white py-2 border-b border-white/5"
                     onClick={(e) => {
                       setMobileMenuOpen(false);
                       if (link.href.startsWith("#")) {
@@ -171,17 +171,17 @@ export default function HeroSection({ onLearnMoreClick }: HeroSectionProps) {
         </AnimatePresence>
       </header>
 
-      {/* Sleek Vertical Marquee - Floating Premium Ticker Tape moved closer to the border of the left, using Lucide React icons */}
+      {/* Sleek Vertical Marquee - Floating Premium Ticker Tape with reduced opacity */}
       <div 
         className="absolute left-1 md:left-2 lg:left-3 xl:left-4 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center w-52 h-[380px] overflow-hidden select-none"
         aria-hidden="true"
       >
-        {/* Soft edge fade overlay effects for perfect high-end seamless blending */}
-        <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-black/85 to-transparent z-10 pointer-events-none" />
+        {/* Soft edge fade overlay effects with reduced opacity */}
+        <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-black/70 to-transparent z-10 pointer-events-none" />
         <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-black to-transparent z-10 pointer-events-none" />
 
         {/* Center vertical guide line */}
-        <div className="absolute left-[26px] top-y-0 h-full w-[1px] bg-white/10 border-dashed border-r border-white/5 pointer-events-none" />
+        <div className="absolute left-[26px] top-y-0 h-full w-[1px] bg-white/5 border-dashed border-r border-white/5 pointer-events-none" />
 
         {/* Vertical Moving Track */}
         <motion.div
@@ -211,17 +211,17 @@ export default function HeroSection({ onLearnMoreClick }: HeroSectionProps) {
             return (
               <div
                 key={i}
-                className="flex items-center gap-3 bg-[#0a0a0af0] px-3 py-2 rounded-full border border-white/10 shadow-xl w-48 backdrop-blur hover:border-[#E31B23]/40 transition-colors duration-300"
+                className="flex items-center gap-3 bg-black/50 px-3 py-2 rounded-full border border-white/10 shadow-xl w-48 backdrop-blur hover:border-[#E31B23]/30 transition-colors duration-300"
               >
                 {/* Floating icon round badge */}
-                <div className="w-8 h-8 rounded-full bg-zinc-900 border border-white/20 flex items-center justify-center text-[#E31B23] shrink-0 shadow-[0_0_8px_rgba(227,27,35,0.25)]">
+                <div className="w-8 h-8 rounded-full bg-zinc-900/50 border border-white/20 flex items-center justify-center text-[#E31B23] shrink-0 shadow-[0_0_8px_rgba(227,27,35,0.15)]">
                   <IconEl size={13} className="stroke-[2.5]" />
                 </div>
                 <div className="flex flex-col text-left">
                   <span className="text-[9px] font-bold tracking-wider text-[#E31B23] font-mono leading-none">
                     {item.tag}
                   </span>
-                  <span className="text-[11px] font-semibold text-white/95 leading-tight mt-0.5 font-sans whitespace-nowrap">
+                  <span className="text-[11px] font-semibold text-white/70 leading-tight mt-0.5 font-sans whitespace-nowrap">
                     {item.label}
                   </span>
                 </div>
@@ -257,12 +257,12 @@ export default function HeroSection({ onLearnMoreClick }: HeroSectionProps) {
             <span className="block mt-1">TRANSFORM.</span>
           </motion.h2>
 
-          {/* Subheading / Description Text */}
+          {/* Subheading / Description Text with reduced opacity */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="mt-6 text-base md:text-lg lg:text-xl text-zinc-300 font-sans leading-relaxed font-light max-w-lg"
+            className="mt-6 text-base md:text-lg lg:text-xl text-zinc-300/80 font-sans leading-relaxed font-light max-w-lg"
           >
             Your support powers life-changing entrepreneurial initiatives, creating jobs and nurturing a self-reliant Africa through democratic wealth generation.
           </motion.p>
@@ -298,18 +298,18 @@ export default function HeroSection({ onLearnMoreClick }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* Floating brand badge - bottom-right as seen in screenshot */}
+      {/* Floating brand badge - bottom-right with reduced opacity */}
       <div className="absolute bottom-6 right-6 z-10 hidden md:block">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.5 }}
-          className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-md shadow-lg border border-zinc-200 select-none text-zinc-900"
+          className="flex items-center gap-2 bg-white/90 px-3 py-1.5 rounded-md shadow-lg border border-zinc-200/50 select-none text-zinc-900 backdrop-blur-sm"
         >
           <svg className="w-4 h-4 fill-[#E31B23]" viewBox="0 0 24 24">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
           </svg>
-          <span className="text-[11px] font-bold tracking-tight font-sans uppercase">
+          <span className="text-[11px] font-bold tracking-tight font-sans uppercase text-zinc-700">
             TEF Global Initiative
           </span>
         </motion.div>

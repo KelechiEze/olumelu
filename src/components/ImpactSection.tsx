@@ -1,31 +1,120 @@
 import { motion } from "motion/react";
+import { useState, useEffect, useRef } from "react";
 
 const impactImg1 = "https://kelechieze.wordpress.com/wp-content/uploads/2026/06/mrelu6.jpg";
 const impactImg2 = "https://kelechieze.wordpress.com/wp-content/uploads/2026/06/mrelu5.jpg";
 const impactImg3 = "https://kelechieze.wordpress.com/wp-content/uploads/2026/06/mrelu4.jpg";
 
+// Counter component with animation
+function AnimatedCounter({ 
+  target, 
+  prefix = "", 
+  suffix = "", 
+  duration = 2000 
+}: { 
+  target: number; 
+  prefix?: string; 
+  suffix?: string; 
+  duration?: number;
+}) {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let startTime: number;
+    let animationFrame: number;
+
+    const animateCount = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      
+      // Ease out cubic for smooth deceleration
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const currentCount = Math.floor(easeOut * target);
+      
+      setCount(currentCount);
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animateCount);
+      } else {
+        setCount(target);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animateCount);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [isVisible, target, duration]);
+
+  // Format number with commas
+  const formattedCount = count.toLocaleString();
+
+  return (
+    <span ref={ref} className="inline-block">
+      {prefix}{formattedCount}{suffix}
+    </span>
+  );
+}
+
 export default function ImpactSection() {
   const impacts = [
     {
       id: "impact-1",
-      metric: "20,000+",
+      metric: 20000,
+      displayMetric: "20,000+",
       title: "Startups Direct Funded",
       desc: "Nurturing outstanding talent across all 54 African countries.",
       image: impactImg1,
+      prefix: "",
+      suffix: "+",
     },
     {
       id: "impact-2",
-      metric: "$100M+",
+      metric: 100,
+      displayMetric: "$100M+",
       title: "Catalytic Capital Disbursed",
       desc: "Giving $5,000 non-refundable grants direct to young founders.",
       image: impactImg2,
+      prefix: "$",
+      suffix: "M+",
     },
     {
       id: "impact-3",
-      metric: "400,000+",
+      metric: 400000,
+      displayMetric: "400,000+",
       title: "Sustainable Jobs Created",
       desc: "Lifting communities, creating income, and driving local trade.",
       image: impactImg3,
+      prefix: "",
+      suffix: "+",
     },
   ];
 
@@ -80,9 +169,17 @@ export default function ImpactSection() {
 
               {/* Text content absolute over image overlay */}
               <div className="relative z-10 text-left">
-                {/* Metric Big visual indicator */}
+                {/* Metric Big visual indicator with animated counter */}
                 <span className="text-5xl md:text-[3.50rem] font-extrabold tracking-[-0.035em] text-white font-display block leading-none">
-                  {item.metric}
+                  {item.id === "impact-1" && (
+                    <AnimatedCounter target={item.metric} prefix={item.prefix} suffix={item.suffix} />
+                  )}
+                  {item.id === "impact-2" && (
+                    <AnimatedCounter target={item.metric} prefix={item.prefix} suffix={item.suffix} />
+                  )}
+                  {item.id === "impact-3" && (
+                    <AnimatedCounter target={item.metric} prefix={item.prefix} suffix={item.suffix} />
+                  )}
                 </span>
 
                 {/* Subtitle / Topic banner */}
