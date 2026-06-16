@@ -1,0 +1,6 @@
+{
+  "name": "Careon",
+  "description": "Unite. Act. Transform. Empowering health, education, and communities to create enduring hope.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
